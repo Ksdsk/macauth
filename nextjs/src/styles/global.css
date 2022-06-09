@@ -1,0 +1,10 @@
+.bigtext {
+    font-size: 2em;
+    font-weight: 900
+}
+
+.minitext {
+    font-size: 0.7em;
+    font-style: italic;
+    /* color: rgb(155, 155, 196); */
+}
