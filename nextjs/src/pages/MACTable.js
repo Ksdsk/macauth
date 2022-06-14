@@ -8,8 +8,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import UpgradeIcon from '@mui/icons-material/Upgrade';
+import DeleteIcon from '@mui/icons-material/Delete';
+import InfoIcon from '@mui/icons-material/Info';
 
-import Container from 'components/Container';
+
+
+
 
 const mock = [
   {
@@ -38,6 +45,31 @@ const mock = [
 
 const SimpleStriped = () => {
   const theme = useTheme();
+  const temp = [{
+    _id: 0
+  }]
+  const [addresses, setAddresses] = useState(temp);
+  const [loading, setLoading] = useState(false);
+
+  const addressesFunction = async () => {
+    try {
+      const data = await axios
+      .get("http://localhost:8080/devices")
+      .then(res => {
+        console.log(res.data)
+        setAddresses(res.data)
+        console.log(res.data[0]._id)
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect( () => {
+    addressesFunction()
+    console.log(addresses)
+  }, []);
+
   return (
 
     <TableContainer component={Paper}>
@@ -68,7 +100,7 @@ const SimpleStriped = () => {
                 fontWeight={700}
                 sx={{ textTransform: 'uppercase' }}
               >
-                Internet Address
+                Last Active
               </Typography>
             </TableCell>
             <TableCell>
@@ -77,7 +109,7 @@ const SimpleStriped = () => {
                 fontWeight={700}
                 sx={{ textTransform: 'uppercase' }}
               >
-                Status
+                Update
               </Typography>
             </TableCell>
             <TableCell>
@@ -86,14 +118,14 @@ const SimpleStriped = () => {
                 fontWeight={700}
                 sx={{ textTransform: 'uppercase' }}
               >
-                Type
+                Delete
               </Typography>
             </TableCell>
             <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
-          {mock.map((item, i) => (
+          {addresses.map((item, i) => (
             <TableRow
               key={i}
               sx={{
@@ -108,26 +140,12 @@ const SimpleStriped = () => {
               </TableCell>
               <TableCell>
                 <Typography color={'text.secondary'} variant={'subtitle2'}>
-                  {item.macaddress}
+                  {item.address}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography color={'text.secondary'} variant={'subtitle2'}>
-                  {item.internetaddress}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant={'caption'}
-                  fontWeight={700}
-                  sx={{ color: theme.palette.success.dark }}
-                >
-                  {item.status}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography color={'text.secondary'} variant={'subtitle2'}>
-                  {item.type}
+                  {item.last_active}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -136,8 +154,10 @@ const SimpleStriped = () => {
                   variant={'subtitle2'}
                   fontWeight={700}
                   sx={{ cursor: 'pointer' }}
-                >
-                  Details
+                >                  
+                  <UpgradeIcon/>             
+                  <DeleteIcon/>
+                  <InfoIcon/>
                 </Typography>
               </TableCell>
             </TableRow>

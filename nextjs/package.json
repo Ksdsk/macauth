@@ -41,11 +41,14 @@
     "@mui/icons-material": "^5.2.4",
     "@mui/material": "^5.2.4",
     "aos": "^2.3.4",
+    "axios": "^0.27.2",
     "card-validator": "^8.1.1",
     "formik": "^2.2.6",
+    "fs": "^0.0.1-security",
     "jarallax": "^2.0.3",
+    "net": "^1.0.2",
     "next": "^12.1.6",
-    "oui": "^12.0.9",
+    "oui": "^12.0.10",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-countup": "^6.2.0",
@@ -57,6 +60,7 @@
     "react-typed": "^1.2.0",
     "react-visibility-sensor": "^5.1.1",
     "slick-carousel": "^1.8.1",
+    "tls": "^0.0.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
