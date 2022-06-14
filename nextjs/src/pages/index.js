@@ -1,8 +1,8 @@
 import React from 'react';
-import WithFixedSidebar from './WithFixedSidebar';
+import LocalNetwork from './local-network';
 
-const WithFixedSidebarPage = () => {
-  return <WithFixedSidebar />;
+const LocalNetworkPage = () => {
+  return <LocalNetwork />;
 };
 
-export default WithFixedSidebarPage;
+export default LocalNetworkPage;

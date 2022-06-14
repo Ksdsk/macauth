@@ -10,7 +10,7 @@ const mock = [
     pages: [
       {
         title: 'Local Network',
-        href: '#',
+        href: '/',
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ const mock = [
       },
       {
         title: 'OUI Lookup',
-        href: '#',
+        href: 'oui-lookup',
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"

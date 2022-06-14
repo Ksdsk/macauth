@@ -6,9 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
-
     "build": "next build",
-
     "start": "next start",
     "prettier:fix": "prettier './src/**/*.js' --write",
     "eslint:fix": "eslint ./src --fix",
@@ -47,6 +45,7 @@
     "formik": "^2.2.6",
     "jarallax": "^2.0.3",
     "next": "^12.1.6",
+    "oui": "^12.0.9",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-countup": "^6.2.0",
@@ -80,7 +79,7 @@
     "rimraf": "^3.0.2",
     "typescript": "^4.6.4"
   },
-  "browser":{
+  "browser": {
     "child_process": false
-    }  
+  }
 }

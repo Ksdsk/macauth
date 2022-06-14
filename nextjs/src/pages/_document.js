@@ -10,10 +10,10 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link
+          {/* <link
             rel="shortcut icon"
-            href="https://assets.maccarianagency.com/favicons/thefront/favicon.ico"
-          />
+            href="favicon.ico"
+          /> */}
           <meta name="theme-color" content="#ffffff" />
           <meta
             name="description"
