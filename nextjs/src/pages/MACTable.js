@@ -10,13 +10,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import UpgradeIcon from '@mui/icons-material/Upgrade';
-import DeleteIcon from '@mui/icons-material/Delete';
-import InfoIcon from '@mui/icons-material/Info';
-
-
-
-
+import DialogDynamic from 'blocks/dialog/dialogDynamic'
 
 const mock = [
   {
@@ -104,24 +98,8 @@ const SimpleStriped = () => {
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography
-                variant={'caption'}
-                fontWeight={700}
-                sx={{ textTransform: 'uppercase' }}
-              >
-                Update
-              </Typography>
+              {/* Empty for more options */}
             </TableCell>
-            <TableCell>
-              <Typography
-                variant={'caption'}
-                fontWeight={700}
-                sx={{ textTransform: 'uppercase' }}
-              >
-                Delete
-              </Typography>
-            </TableCell>
-            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -145,20 +123,18 @@ const SimpleStriped = () => {
               </TableCell>
               <TableCell>
                 <Typography color={'text.secondary'} variant={'subtitle2'}>
-                  {item.last_active}
+                  {
+                    new Date(item.last_active).toUTCString()
+                  }
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography
-                  color={'primary'}
-                  variant={'subtitle2'}
-                  fontWeight={700}
-                  sx={{ cursor: 'pointer' }}
-                >                  
-                  <UpgradeIcon/>             
-                  <DeleteIcon/>
-                  <InfoIcon/>
-                </Typography>
+                <DialogDynamic
+                  itemAddress={item.address + ""}
+                  itemOuiLong={item.oui_long + ""}
+                  itemDateAdded={item.date_added + ""}
+                  itemLastActive={item.last_active + ""}
+                />
               </TableCell>
             </TableRow>
           ))}

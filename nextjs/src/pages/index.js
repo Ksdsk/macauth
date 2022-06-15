@@ -2,7 +2,12 @@ import React from 'react';
 import LocalNetwork from './local-network';
 
 const LocalNetworkPage = () => {
-  return <LocalNetwork />;
+  return (
+
+    <LocalNetwork />
+
+  
+  );
 };
 
 export default LocalNetworkPage;

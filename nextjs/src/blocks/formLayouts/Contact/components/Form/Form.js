@@ -12,61 +12,74 @@ import Grid from '@mui/material/Grid';
 const Form = () => {
   const theme = useTheme();
 
+  const [address, setAddress] = React.useState('');
+  const [description, setDescription] = React.useState('');
+
+  const handleAddress = (e) => {
+    setAddress(e.target.value)
+  }
+
+  const handleDescription = (e) => {
+    setDescription(e.target.value)
+  }
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    if (/(^[a-zA-Z0-9\:\.\-]+$)/.test(address)) {
+      alert("Pass " + address)
+    } else {
+      alert("Fail! " + address)
+    }
+
+  }
+
   return (
+
     <Box>
       <Box
-        padding={{ xs: 3, sm: 6 }}
         width={1}
-        component={Card}
-        boxShadow={1}
         marginBottom={4}
       >
         <form noValidate autoComplete="off">
           <Grid container spacing={4}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                sx={{ height: 54 }}
-                label="First name"
-                variant="outlined"
-                color="primary"
-                size="medium"
-                name="firstName"
-                fullWidth
-              />
+            <Grid item container xs={12}>
+              <Box>
+                <Typography variant="h6" >
+                  <strong>Tip:</strong> Dots, colons, or dashes (. / : / -) will be ignored.
+                </Typography>
+                <Typography variant="body2" fontWeight={'light'}>
+                  e.g. AA:BB:CC:DD:EE:FF, AA-BB-CC-DD-EE-FF, AAAA.BBBB.CCCC is <span style={{color: 'green'}}> valid</span>, 
+                  but AA^BB^CC^DD^EE^FF is <span style={{color: 'red'}}>not</span>
+                </Typography>
+
+              </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                sx={{ height: 54 }}
-                label="Last name"
-                variant="outlined"
-                color="primary"
-                size="medium"
-                name="lastName"
-                fullWidth
-              />
+            <Grid item xs={12}>
+              <Divider />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 sx={{ height: 54 }}
-                label="Email"
-                type="email"
+                label="MAC Address"
                 variant="outlined"
                 color="primary"
                 size="medium"
-                name="email"
+                name="macAddress"
                 fullWidth
+                onChange={handleAddress}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Message"
+                label="Description"
                 multiline
-                rows={6}
+                rows={3}
                 variant="outlined"
                 color="primary"
                 size="medium"
-                name="message"
+                name="description"
                 fullWidth
+                onChange={handleDescription}
               />
             </Grid>
             <Grid item container justifyContent={'center'} xs={12}>
@@ -77,57 +90,17 @@ const Form = () => {
                 size="medium"
                 type="submit"
                 fullWidth
+                onClick={submitForm}
               >
-                Submit
+                Authorize this address
               </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-            <Grid item container justifyContent={'center'} xs={12}>
-              <Box>
-                <Typography component="p" variant="body2" align="left">
-                  By clicking on "submit" you agree to our{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Privacy Policy
-                  </Box>
-                  ,{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Data Policy
-                  </Box>{' '}
-                  and{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Cookie Policy
-                  </Box>
-                  .
-                </Typography>
-              </Box>
             </Grid>
           </Grid>
         </form>
       </Box>
-      <Box>
-        <Typography color="text.secondary" align={'center'}>
-          We'll get back to you in 1-2 business days.
-        </Typography>
-      </Box>
     </Box>
   );
+  
 };
 
 export default Form;

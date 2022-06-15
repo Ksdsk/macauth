@@ -7,36 +7,22 @@ import AppBar from '@mui/material/AppBar';
 
 import Container from 'components/Container';
 import { Topbar, Sidebar, Footer } from './components';
-import MACTable from './MACTable'
-
 
 const ChildMock = () => {
-  const theme = useTheme();
   return (
     <Box p={4}>
       <Box
         width={1}
         height={1}
-        minHeight={800}
+        minHeight={840}
         borderRadius={2}
-        // border={`2px solid ${theme.palette.divider}`}
-        // sx={{
-        //   borderStyle: 'dashed',
-        // }}
-      >
-
-        <MACTable/>
-        <Box pt={2} className={"minitext"} color={'text.secondary'}>
-          {/* {"Last Updated: " + new Date().toUTCString()} */}
-        </Box>
-
-      </Box>
-      
+        bgcolor={'alternate.dark'}
+      />
     </Box>
   );
 };
 
-const WithFixedSidebar = () => {
+const WithCollapsibleMenuItems = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -79,7 +65,7 @@ const WithFixedSidebar = () => {
           display="flex"
           flex="1 1 auto"
           overflow="hidden"
-          paddingLeft={{ md: '256px' }}
+          paddingLeft={{ md: '320px' }}
         >
           <Box display="flex" flex="1 1 auto" overflow="hidden">
             <Box flex="1 1 auto" height="100%" overflow="auto">
@@ -96,4 +82,4 @@ const WithFixedSidebar = () => {
   );
 };
 
-export default WithFixedSidebar;
+export default WithCollapsibleMenuItems;
