@@ -6,9 +6,8 @@ import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
-import OUILookup from './OUILookup'
-
+import { Topbar, Sidebar, Footer } from '../../components';
+import AddForm from './components/AddForm'
 
 const ChildMock = () => {
   const theme = useTheme();
@@ -19,16 +18,17 @@ const ChildMock = () => {
         height={1}
         minHeight={800}
         borderRadius={2}
-        border={`2px solid ${theme.palette.divider}`}
-        sx={{
-          borderStyle: 'dashed',
-        }}
+        // border={`2px solid ${theme.palette.divider}`}
+        // sx={{
+        //   borderStyle: 'dashed',
+        // }}
       >
+        
+        <AddForm/>
 
-        <OUILookup/>
-        {/* <Box pt={2} className={"minitext"} color={'text.secondary'}>
-          Last updated: ????/??/?? ??:??:??
-        </Box> */}
+        <Box pt={2} className={"minitext"} color={'text.secondary'}>
+          {/* {"Last Updated: " + new Date().toUTCString()} */}
+        </Box>
 
       </Box>
       
@@ -36,7 +36,7 @@ const ChildMock = () => {
   );
 };
 
-const WithFixedSidebar = () => {
+const Authorizer = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -96,4 +96,4 @@ const WithFixedSidebar = () => {
   );
 };
 
-export default WithFixedSidebar;
+export default Authorizer;

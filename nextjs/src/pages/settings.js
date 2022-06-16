@@ -1,9 +1,9 @@
 import React from 'react';
-import Authorizer from './MacAddress/Authorizer';
+import Settings from './Tools/Settings';
 
 const AuthorizerPage = () => {
   return (
-    <Authorizer />
+    <Settings />
   );
 };
 

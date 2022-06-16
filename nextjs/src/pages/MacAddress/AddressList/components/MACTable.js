@@ -10,40 +10,41 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import DialogDynamic from 'blocks/dialog/dialogDynamic'
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import DialogDynamic from './dialog/dialogDynamic'
 
-const mock = [
-  {
-    oui: 'VMware, Inc.',
-    macaddress: '00-50-56-e2-5e-fb',
-    internetaddress: '192.168.160.254',
-    status: 'Active',
-    type: 'Dynamic',
-  },
-  {
-    oui: 'VMware, Inc.',
-    macaddress: '00-50-56-f4-fe-d3',
-    internetaddress: '192.168.174.254',
-    status: 'Active',
-    type: 'Dynamic',
-  },
-  {
-    oui: 'Cisco Systems, Inc',
-    macaddress: '58-f3-9c-f8-e2-c0',
-    internetaddress: '192.168.4.1',
-    status: 'Active',
-    type: 'Dynamic',
-  },
-
-];
 
 const SimpleStriped = () => {
   const theme = useTheme();
   const temp = [{
     _id: 0
   }]
+
+  const [data, setData] = useState();
+
   const [addresses, setAddresses] = useState(temp);
-  const [loading, setLoading] = useState(false);
+
+  const [addressFormat, setAddressFormat] = React.useState('');
+
+  useEffect(() => {
+    if (read_cookie("address_format").length == 0) {
+      setAddressFormat(1)
+    } else {
+      setAddressFormat(read_cookie("address_format"))
+    }
+  })
+  
+  const CustomAddress =  async () => {
+
+    // if (addressFormat == 1) { // dots
+    //   const formatted = props.address.replace(/(.{4})/g,"1.")
+      return (
+        <Typography color={'text.secondary'} variant={'subtitle2'}>
+         {addressFormat == 1 ? item.address.replace(/.{4}/g,"$&.").slice(0,-1) : ""}
+        </Typography>
+      )
+    // }
+  }
 
   const addressesFunction = async () => {
     try {
@@ -51,17 +52,38 @@ const SimpleStriped = () => {
       .get("http://localhost:8080/devices")
       .then(res => {
         console.log(res.data)
+        for (var i = 0; i < res.data.length; i++) {
+          if (read_cookie("address_format") == 1) {
+            res.data[i].address = res.data[i].address.replace(/(.{4})/g,"$&.").slice(0,-1)
+          } else if (read_cookie("address_format") == 2) {
+            res.data[i].address = res.data[i].address.replace(/(.{2})/g,"$&:").slice(0,-1)
+          } else if (read_cookie("address_format") == 3) {
+            res.data[i].address = res.data[i].address.replace(/(.{2})/g,"$&-").slice(0,-1)
+          } else {
+            res.data[i].address = res.data[i].address.replace(/(.{4})/g,"$&.").slice(0,-1)
+          }
+          
+          if (read_cookie("time_zone").length != 0) {
+            console.log(res.data[i].date_added)
+            res.data[i].date_added = Math.floor(new Date(res.data[i].date_added).getTime() / 1000) + (3600000 * read_cookie("time_zone"))
+          }
+
+          if (read_cookie("time_zone").length != 0) {
+            console.log(res.data[i].last_active)
+            res.data[i].last_active = Math.floor(new Date(res.data[i].last_active).getTime() / 1000) + (3600000 * read_cookie("time_zone"))
+          }
+
+        }
         setAddresses(res.data)
-        console.log(res.data[0]._id)
       })
     } catch (err) {
       console.log(err)
     }
   }
 
-  useEffect( () => {
+  useEffect(() => {
     addressesFunction()
-    console.log(addresses)
+    
   }, []);
 
   return (
@@ -117,9 +139,7 @@ const SimpleStriped = () => {
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography color={'text.secondary'} variant={'subtitle2'}>
-                  {item.address}
-                </Typography>
+                {item.address}
               </TableCell>
               <TableCell>
                 <Typography color={'text.secondary'} variant={'subtitle2'}>

@@ -43,14 +43,14 @@ const mock = [
     pages: [
       {
         title: 'OUI Lookup',
-        href: '#',
+        href: '/ouilookup',
         icon: (
           <DialpadOutlinedIcon/>
         ),
       },
       {
         title: 'Settings',
-        href: '#',
+        href: 'settings',
         icon: (
           <SettingsIcon/>
         ),

@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           {/* <link
             rel="shortcut icon"
-            href="favicon.ico"
+            href="./favicon.ico"
           /> */}
           <meta name="theme-color" content="#ffffff" />
           <meta

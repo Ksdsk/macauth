@@ -61,6 +61,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-typed": "^1.2.0",
     "react-visibility-sensor": "^5.1.1",
+    "sfcookies": "^1.0.2",
     "slick-carousel": "^1.8.1",
     "tls": "^0.0.1",
     "url": "^0.11.0",

@@ -1,13 +1,10 @@
 import React from 'react';
-import LocalNetwork from './local-network';
+import AddressList from './MacAddress/AddressList';
 
-const LocalNetworkPage = () => {
+const MainPage = () => {
   return (
-
-    <LocalNetwork />
-
-  
+    <AddressList />
   );
 };
 
-export default LocalNetworkPage;
+export default MainPage;

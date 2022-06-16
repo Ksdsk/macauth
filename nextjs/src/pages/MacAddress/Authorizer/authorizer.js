@@ -6,9 +6,8 @@ import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
-import MACTable from './MACTable'
-
+import { Topbar, Sidebar, Footer } from '../../components';
+import AddForm from './components/AddForm'
 
 const ChildMock = () => {
   const theme = useTheme();
@@ -24,8 +23,9 @@ const ChildMock = () => {
         //   borderStyle: 'dashed',
         // }}
       >
+        
+        <AddForm/>
 
-        <MACTable/>
         <Box pt={2} className={"minitext"} color={'text.secondary'}>
           {/* {"Last Updated: " + new Date().toUTCString()} */}
         </Box>
@@ -36,7 +36,7 @@ const ChildMock = () => {
   );
 };
 
-const WithFixedSidebar = () => {
+const Authorizer = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -96,4 +96,4 @@ const WithFixedSidebar = () => {
   );
 };
 
-export default WithFixedSidebar;
+export default Authorizer;
