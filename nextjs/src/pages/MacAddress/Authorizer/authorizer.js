@@ -4,10 +4,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
-
+import Alert from '@mui/material/Alert';
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from '../../components';
-import AddForm from './components/AddForm'
+import { Topbar, Sidebar, Footer } from '../../../components/navbar';
+import AddForm from './components/AddForm';
 
 const ChildMock = () => {
   const theme = useTheme();
@@ -25,11 +25,9 @@ const ChildMock = () => {
       >
         
         <AddForm/>
-
-        <Box pt={2} className={"minitext"} color={'text.secondary'}>
+        <Box pt={2} className={'minitext'} color={'text.secondary'}>
           {/* {"Last Updated: " + new Date().toUTCString()} */}
         </Box>
-
       </Box>
       
     </Box>

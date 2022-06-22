@@ -9,46 +9,49 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import DialogRemove from '../dialogRemove';
 
-const DialogDynamic = ({itemAddress, itemOuiLong, itemLastActive, itemDateAdded}) => {
+const DialogDynamic = ({itemAddress, itemDescription, itemOuiLong, itemLastActive, itemDateAdded}) => {
 
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   
-    const handleClose = () => {
-      setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    return (
-        <Box>
-            <Button variant="outlined" onClick={handleClickOpen}>
+  return (
+    <Box>
+      <Button variant="outlined" onClick={handleClickOpen}>
                         More Options
-                    </Button>
-                    <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>{itemAddress}</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                <strong>OUI Details:</strong> {itemOuiLong}
-                            </DialogContentText>
-                            <DialogContentText>
-                                <strong>Last Active:</strong> {itemLastActive}
-                            </DialogContentText>
-                            <DialogContentText>
-                                <strong>Date Added:</strong> {itemDateAdded}
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <DialogRemove
-                                itemAddress={itemAddress}
-                            />
-                            <Button onClick={handleClose}>Close</Button>
-                        </DialogActions>
-                    </Dialog>
-        </Box>
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{itemAddress}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <strong>OUI Details:</strong> {itemOuiLong}
+          </DialogContentText>
+          <DialogContentText>
+            <strong>Description:</strong> {itemDescription}
+          </DialogContentText>
+          <DialogContentText>
+            <strong>Last Active:</strong> {itemLastActive}
+          </DialogContentText>
+          <DialogContentText>
+            <strong>Date Added:</strong> {itemDateAdded}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <DialogRemove
+            itemAddress={itemAddress}
+          />
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
         
-    )
-}
+  );
+};
 
 export default DialogDynamic;

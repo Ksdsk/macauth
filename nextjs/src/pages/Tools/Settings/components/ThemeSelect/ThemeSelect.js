@@ -11,15 +11,16 @@ const CustomSelect = () => {
   const [theme, setTheme] = React.useState('');
 
   React.useEffect(() => {
-    if (read_cookie("temp_theme").length == 0) {
+    if (read_cookie('temp_theme').length == 0) {
     } else {
-      setTheme(read_cookie("temp_theme"))
+      setTheme(read_cookie('temp_theme'));
     }
-  })
+  });
 
   const handleChange = (event) => {
     setTheme(event.target.value);
-    bake_cookie("temp_theme", event.target.value);
+    console.log(event.target.value);
+    bake_cookie('temp_theme', event.target.value);
   };
 
   return (
@@ -36,7 +37,7 @@ const CustomSelect = () => {
           label="Screen theme"
           onChange={handleChange}
         >
-          <MenuItem value={"light"}>
+          <MenuItem value={'light'}>
             <Box display={'flex'} alignItems={'center'}>
               <Box
                 component={'svg'}
@@ -58,7 +59,7 @@ const CustomSelect = () => {
               <Typography>Light</Typography>
             </Box>
           </MenuItem>
-          <MenuItem value={"dark"}>
+          <MenuItem value={'dark'}>
             <Box display={'flex'} alignItems={'center'}>
               <Box
                 component={'svg'}

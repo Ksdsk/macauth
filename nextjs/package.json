@@ -1,13 +1,14 @@
 {
-  "name": "thefront-js--nextjs",
-  "author": "maccarian",
-  "email": "hi@maccarianagency.com",
-  "version": "4.7.0",
+  "name": "macauth",
+  "author": "daniel kang",
+  "email": "danielkang@dal.ca",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "prettier:fix": "prettier './src/**/*.js' --write",
     "eslint:fix": "eslint ./src --fix",
     "codeStyle:fix": "npm run prettier:fix && npm run eslint:fix",
@@ -18,6 +19,7 @@
       "react-app"
     ]
   },
+  "eslintIgnore": ["*.js"],
   "browserslist": {
     "production": [
       ">0.5%",

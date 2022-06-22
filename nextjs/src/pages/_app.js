@@ -11,7 +11,7 @@ import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 
 
-import globalStyle from '../styles/global.css'
+import globalStyle from '../styles/global.css';
 
 export default function App({ Component, pageProps }) {
   return (

@@ -6,12 +6,12 @@ import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from '../../components';
-import MACTable from './components/MACTable'
+import { Topbar, Sidebar, Footer } from '../../../components/navbar';
+import MACTable from './components/MACTable';
 
 
 const ChildMock = () => {
-  const theme = useTheme();
+
   return (
     <Box p={4}>
       <Box
@@ -26,7 +26,7 @@ const ChildMock = () => {
       >
 
         <MACTable/>
-        <Box pt={2} className={"minitext"} color={'text.secondary'}>
+        <Box pt={2} className={'minitext'} color={'text.secondary'}>
           {/* {"Last Updated: " + new Date().toUTCString()} */}
         </Box>
 

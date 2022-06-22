@@ -21,15 +21,15 @@ const CustomSelect = () => {
   const [addressFormat, setAddressFormat] = React.useState('');
 
   useEffect(() => {
-    if (read_cookie("temp_address_format").length == 0) {
+    if (read_cookie('temp_address_format').length == 0) {
     } else {
-      setAddressFormat(read_cookie("temp_address_format"))
+      setAddressFormat(read_cookie('temp_address_format'));
     }
-  })
+  });
 
   const handleChange = (event) => {
     setAddressFormat(event.target.value);
-    bake_cookie("temp_address_format",event.target.value);
+    bake_cookie('temp_address_format',event.target.value);
     // if (read_cookie("agraga").length == 0) {
     //   console.log("none");
     // }

@@ -1,1 +1,1 @@
-export { default } from './ouilookup'
+export { default } from './ouilookup';

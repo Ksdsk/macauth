@@ -6,8 +6,8 @@ import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from '../../components';
-import AddForm from './components/AddForm'
+import { Topbar, Sidebar, Footer } from '../../../components/navbar';
+import AddForm from './components/Lookup';
 
 const ChildMock = () => {
   const theme = useTheme();
@@ -26,7 +26,7 @@ const ChildMock = () => {
         
         <AddForm/>
 
-        <Box pt={2} className={"minitext"} color={'text.secondary'}>
+        <Box pt={2} className={'minitext'} color={'text.secondary'}>
           {/* {"Last Updated: " + new Date().toUTCString()} */}
         </Box>
 
@@ -36,7 +36,7 @@ const ChildMock = () => {
   );
 };
 
-const Authorizer = () => {
+const OUILookup = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -96,4 +96,4 @@ const Authorizer = () => {
   );
 };
 
-export default Authorizer;
+export default OUILookup;

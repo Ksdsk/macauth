@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from './Form';
 
-const AddForm = () => {
+const Lookup = () => {
   return (
     <Form/>
   );
 };
 
-export default AddForm;
+export default Lookup;

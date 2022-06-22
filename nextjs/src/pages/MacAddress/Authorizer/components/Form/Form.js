@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,6 +8,127 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+
+const StatusAlert = () => {
+  const [open, setOpen] = React.useState(true);
+  const [status, setStatus] = React.useState('');
+  const [address, setAddress] = React.useState('');
+  
+  useEffect(() => {
+    if (read_cookie('status').length != [0]) {
+      setStatus(read_cookie('status').split('?')[0]);
+    }
+
+
+
+    if (read_cookie('status').length != [0]) {
+      if (read_cookie('address_format') == 1) {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{4})/g,'$&.').slice(0,-1));
+      } else if (read_cookie('address_format') == 2) {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{2})/g,'$&:').slice(0,-1));
+      } else if (read_cookie('address_format') == 3) {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{2})/g,'$&-').slice(0,-1));
+      } else {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{4})/g,'$&.').slice(0,-1));
+      }
+    }
+
+    delete_cookie('status');
+    delete_cookie('address');
+  
+  });
+
+  console.log(status);
+
+  
+  if (status == 'success') {
+    return (
+      <Collapse in={open} style={{width: '100%'}}>
+        <Alert
+          style={{width: '100%'}}
+          severity="success" 
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Success: Authorized {address} successfully.
+        </Alert>
+      </Collapse>
+
+    );
+  } else if (status == 'warning') {
+    return (
+
+      <Collapse in={open} style={{width: '100%'}}>
+        <Alert
+          style={{width: '100%'}}
+          severity="warning" 
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Warning: The OUI for {address} is undefined.
+        </Alert>
+      </Collapse>
+    );
+  } else if (status == 'error') {
+    return (
+
+
+      <Collapse in={open} style={{width: '100%'}}>
+        <Alert
+          style={{width: '100%'}}
+          severity="error" 
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+        Error: {address} could not be added. Contact support for assistance.
+        </Alert>
+      </Collapse>
+
+    );
+  } else {
+    return (
+      <div></div>
+    );
+  }
+};
 
 const Form = () => {
   const theme = useTheme();
@@ -15,40 +136,55 @@ const Form = () => {
   const [address, setAddress] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [disabled, setDisabled] = React.useState(true);
+  const [status, setStatus] = React.useState('');
 
   const handleAddress = (e) => {
     if (/^[a-zA-Z0-9\:\.\-]+$/.test(e.target.value)) {
       // check for right length
-      const trimmedAddress = e.target.value.replace(/[\:\.\-]/g,'')
+      const trimmedAddress = e.target.value.replace(/[\:\.\-]/g,'');
       if (trimmedAddress.length == 12) {
-        setAddress(trimmedAddress)
-        setDisabled(false)
+        setAddress(trimmedAddress);
+        setDisabled(false);
       } else {
-        setDisabled(true)
+        setDisabled(true);
       }
     } else {
-      setDisabled(true)
+      setDisabled(true);
     }
-  }
+  };
 
   const handleDescription = (e) => {
-    setDescription(e.target.value)
-  }
+    setDescription(e.target.value);
+  };
 
   const submitForm = (e) => {
     e.preventDefault();
     const authorizedAddress = {
       address: address,
       description: description
-    }
+    };
 
     try {
-      axios.post("http://localhost:8080/devices", authorizedAddress)
-      .then((res) => console.log(res.data))
+      axios.post('http://localhost:8080/devices', authorizedAddress)
+        .then((res) => {
+        
+          if (res.data.oui == null) {
+            bake_cookie('status', 'error?'+res.data.address);
+            window.location.href = '/authorizer';
+          } else {
+            if (res.data.oui == 'Unregistered') {
+              bake_cookie('status', 'warning?'+res.data.address);
+              window.location.href = '/authorizer';
+            } else {
+              bake_cookie('status', 'success?'+res.data.address);
+              window.location.href = '/authorizer';
+            }
+          }
+        });
     } catch (err) {
-        console.log(err)
+      window.location.href = '/authorizer?status=error&address=' + res.data.address;
     }
-  }
+  };
 
   return (
 
@@ -99,7 +235,14 @@ const Form = () => {
                 onChange={handleDescription}
               />
             </Grid>
-            <Grid item container justifyContent={'center'} xs={12}>
+
+            
+            <Grid item container justifyContent={'center'} xs={9}>
+              <StatusAlert/>
+            </Grid>
+
+
+            <Grid item container justifyContent={'center'} xs={3}>
               <Button
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"

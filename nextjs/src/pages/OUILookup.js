@@ -1,10 +1,10 @@
 import React from 'react';
-import Authorizer from './MacAddress/Authorizer';
+import OUILookup from './Tools/OUILookup';
 
-const AuthorizerPage = () => {
+const OUILookupE = () => {
   return (
-    <Authorizer />
+    <OUILookup />
   );
 };
 
-export default AuthorizerPage;
+export default OUILookupE;

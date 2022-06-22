@@ -11,7 +11,100 @@ import axios from 'axios';
 import ThemeSelect from '../ThemeSelect';
 import AddressFormat from '../AddressFormat';
 import TimeZoneFormat from '../SetTimeZone';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+
+// if settings get too complicated i'll add the dialogs
+
+const StatusAlert = () => {
+  const [open, setOpen] = React.useState(true);
+  const [status, setStatus] = React.useState('');
+  const [address, setAddress] = React.useState('');
+  
+  useEffect(() => {
+    if (read_cookie('status').length != [0]) {
+      setStatus(read_cookie('status').split('?')[0]);
+    }
+
+    if (read_cookie('status').length != [0]) {
+      if (read_cookie('address_format') == 1) {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{4})/g,'$&.').slice(0,-1));
+      } else if (read_cookie('address_format') == 2) {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{2})/g,'$&:').slice(0,-1));
+      } else if (read_cookie('address_format') == 3) {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{2})/g,'$&-').slice(0,-1));
+      } else {
+        setAddress(read_cookie('status').split('?')[1].replace(/(.{4})/g,'$&.').slice(0,-1));
+      }
+    }
+
+    delete_cookie('status');
+    delete_cookie('address');
+  
+  });
+
+  console.log(status);
+
+  if (status == 'success') {
+    return (
+      <Collapse in={open} style={{width: '100%'}}>
+        <Alert
+          style={{width: '100%'}}
+          severity="success" 
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Success: Authorized {address} successfully.
+        </Alert>
+      </Collapse>
+
+    );
+  } else if (status == 'error') {
+    return (
+
+      <Collapse in={open} style={{width: '100%'}}>
+        <Alert
+          style={{width: '100%'}}
+          severity="error" 
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+        Error: {address} could not be added. Contact support for assistance.
+        </Alert>
+      </Collapse>
+
+    );
+  } else {
+    return (
+      <div></div>
+    );
+  }
+};
 
 const Form = () => {
   const theme = useTheme();
@@ -20,28 +113,33 @@ const Form = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    bake_cookie("theme", read_cookie("temp_theme"));
-    bake_cookie("address_format", read_cookie("temp_address_format"))
-    bake_cookie("time_zone", read_cookie("temp_time_zone"))
-    if (mode != read_cookie("theme")) {
+    if (read_cookie('temp_theme').length == [0]) {
+      bake_cookie('theme', 'light');
+    } else {
+      bake_cookie('theme', read_cookie('temp_theme'));
+    }
+
+    bake_cookie('address_format', read_cookie('temp_address_format'));
+    bake_cookie('time_zone', read_cookie('temp_time_zone'));
+    if (mode != read_cookie('theme')) {
       themeToggler();
     }
-  }
+  };
 
   const resetSettings = (e) => {
     e.preventDefault();
-    delete_cookie("theme")
-    delete_cookie("address_format")
-    delete_cookie("time_zone")
-    delete_cookie("temp_theme")
-    delete_cookie("temp_address_format")
-    delete_cookie("temp_time_zone")
+    delete_cookie('theme');
+    delete_cookie('address_format');
+    delete_cookie('time_zone');
+    delete_cookie('temp_theme');
+    delete_cookie('temp_address_format');
+    delete_cookie('temp_time_zone');
 
-    if (mode != "light") {
+    if (mode != 'light') {
       themeToggler();
     }
     window.location.reload();
-  }
+  };
 
 
   return (
@@ -98,10 +196,10 @@ const Form = () => {
             <Grid item xs={9}>
               <TimeZoneFormat/>
             </Grid>
-            <Grid xs={8}>
-            {/* Empty for placement */}
+            <Grid item xs={6}>
+              {/* Empty for placement */}
             </Grid>
-            <Grid item container justifyContent={'center'} xs={2}>
+            <Grid item container justifyContent={'center'} xs={3}>
               <Button
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"
@@ -114,7 +212,7 @@ const Form = () => {
                 Save
               </Button>
             </Grid>
-            <Grid item container justifyContent={'center'} xs={2}>
+            <Grid item container justifyContent={'center'} xs={3}>
               <Button
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"
