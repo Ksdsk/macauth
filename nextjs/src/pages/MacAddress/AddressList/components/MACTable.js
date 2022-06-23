@@ -12,12 +12,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import DialogDynamic from './dialog/dialogDynamic';
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 const SimpleStriped = () => {
   const theme = useTheme();
   const temp = [{
-    _id: 0
+    _id: 0,
+    oui: <CircularProgress/>, 
+    address: <CircularProgress/>,
+    last_active: "."
   }];
 
   const [data, setData] = useState();
@@ -75,7 +78,7 @@ const SimpleStriped = () => {
   }, []);
 
   return (
-
+    
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 750 }} aria-label="simple table">
         <TableHead sx={{ bgcolor: 'alternate.dark' }}>
@@ -132,7 +135,7 @@ const SimpleStriped = () => {
               <TableCell>
                 <Typography color={'text.secondary'} variant={'subtitle2'}>
                   {
-                    new Date(item.last_active).toUTCString()
+                    (item.last_active == ".") ? <CircularProgress/> : new Date(item.last_active).toUTCString().slice(0,-4)
                   }
                 </Typography>
               </TableCell>
