@@ -1,15 +1,20 @@
+// Imports
 import React, { useState } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
-
 import Container from 'components/Container';
 import { Topbar, Sidebar, Footer } from '../../../components/navbar';
 import AddForm from './components/AddForm';
 
-const ChildMock = () => {
+/**
+ * TemplatePate
+ * Returns the template page
+ * @returns {JSX.Element}
+ */
+const TemplatePage = () => {
   const theme = useTheme();
   return (
     <Box p={4}>
@@ -18,30 +23,30 @@ const ChildMock = () => {
         height={1}
         minHeight={800}
         borderRadius={2}
-        // border={`2px solid ${theme.palette.divider}`}
-        // sx={{
-        //   borderStyle: 'dashed',
-        // }}
       >
-        
         <AddForm/>
-
-        <Box pt={2} className={'minitext'} color={'text.secondary'}>
-          {/* {"Last Updated: " + new Date().toUTCString()} */}
-        </Box>
-
       </Box>
-      
     </Box>
   );
 };
 
-const Authorizer = () => {
+/**
+ * Settings
+ * Returns the settings page
+ * @returns {JSX.Element}
+ */
+const Settings = () => {
+
+  // Mobile check
   const theme = useTheme();
+
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  const open = isMd ? false : openSidebar;
+
+  // React Hooks
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = () => {
@@ -51,8 +56,6 @@ const Authorizer = () => {
   const handleSidebarClose = () => {
     setOpenSidebar(false);
   };
-
-  const open = isMd ? false : openSidebar;
 
   return (
     <Box>
@@ -83,7 +86,7 @@ const Authorizer = () => {
         >
           <Box display="flex" flex="1 1 auto" overflow="hidden">
             <Box flex="1 1 auto" height="100%" overflow="auto">
-              <ChildMock />
+              <TemplatePage />
               <Divider />
               <Container paddingY={4}>
                 <Footer />
@@ -96,4 +99,4 @@ const Authorizer = () => {
   );
 };
 
-export default Authorizer;
+export default Settings;

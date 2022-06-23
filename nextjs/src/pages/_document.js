@@ -10,14 +10,10 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          {/* <link
-            rel="shortcut icon"
-            href="./favicon.ico"
-          /> */}
           <meta name="theme-color" content="#ffffff" />
           <meta
             name="description"
-            content="A modern design system for your new landing and web pages."
+            content="Mackerel is a tool for managing and monitoring your network."
           />
           <meta
             name="robots"
@@ -27,19 +23,19 @@ export default class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://assets.maccarianagency.com/screenshots/the-front/social.png"
+            content=""
           />
           <meta
             property="og:title"
-            content="theFront | UI Kit by Maccarian Agency."
+            content="Mackerel MacAuth"
           />
           <meta
             property="og:description"
-            content="A modern design system for your new landing and web pages."
+            content="Mackerel is a tool for managing and monitoring your network."
           />
           <meta
             property="og:url"
-            content="https://thefront.maccarianagency.com/"
+            content="https://www.github.com/ksdsk/shipmacapi"
           />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link

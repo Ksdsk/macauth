@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
+// List of all time zones
 const timeZoneList = [
   {
     'time': 'UTC-12:00',
@@ -162,10 +164,17 @@ const timeZoneList = [
   },
 ];
 
-
+/**
+ * CustomSelect
+ * Selects a time zone
+ * @returns {JSX.Element}
+ */
 const CustomSelect = () => {
+
+  // React Hooks
   const [timeZone, setTimeZone] = React.useState('');
 
+  // set time zone cookie
   React.useEffect(() => {
     if (read_cookie('temp_time_zone').length == 0) {
     } else {
@@ -173,13 +182,13 @@ const CustomSelect = () => {
     }
   });
 
+  // handle change
   const handleChange = (event) => {
     setTimeZone(event.target.value);
     bake_cookie('temp_time_zone', event.target.value);
   };
 
   return (
-
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">

@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,9 +9,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 
+/**
+ * DialogRemove
+ * Dialog for removing a MAC address
+ * @param {String} itemAddress 
+ * @returns {JSX.Element}
+ */
 const DialogRemove = ({itemAddress}) => {
 
-  const itemAddressTrim = (itemAddress + "").replace(/[\:\.\-]/g,'');
+  // React Hooks
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -21,6 +28,14 @@ const DialogRemove = ({itemAddress}) => {
     setOpen(false);
   };
 
+  // Trim the address from the separator
+  const itemAddressTrim = (itemAddress + "").replace(/[\:\.\-]/g,'');
+
+  /**
+   * removeAddress
+   * Remove the MAC address from the database
+   * @param {String} address 
+   */
   function removeAddress(address) {
     try {
       axios.delete('http://macauth.herokuapp.com/devices/'+address)

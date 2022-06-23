@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,7 +8,14 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
+/**
+ * CustomSelect
+ * Select component for the theme selector
+ * @returns {JSX.Element}
+ */
 const CustomSelect = () => {
+
+  // React Hooks
   const [theme, setTheme] = React.useState('');
 
   React.useEffect(() => {
@@ -17,6 +25,7 @@ const CustomSelect = () => {
     }
   });
 
+  // handle change
   const handleChange = (event) => {
     setTheme(event.target.value);
     console.log(event.target.value);
@@ -24,7 +33,6 @@ const CustomSelect = () => {
   };
 
   return (
-
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">

@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+
+// Imports
 import React, { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,17 +16,23 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
+/**
+ * StatusAlert
+ * Returns a status alert based on the status cookie
+ * @returns {JSX.Element}
+ */
 const StatusAlert = () => {
+  
+  // React Hooks
   const [open, setOpen] = React.useState(true);
   const [status, setStatus] = React.useState('');
   const [address, setAddress] = React.useState('');
   
+  // Get the status cookie and set the status
   useEffect(() => {
     if (read_cookie('status').length != [0]) {
       setStatus(read_cookie('status').split('?')[0]);
     }
-
-
 
     if (read_cookie('status').length != [0]) {
       if (read_cookie('address_format') == 1) {
@@ -38,16 +46,16 @@ const StatusAlert = () => {
       }
     }
 
+    // Delete the status cookie after setting the status
     delete_cookie('status');
     delete_cookie('address');
   
   });
 
-  console.log(status);
-
-  
+  // Return the status alert
   if (status == 'success') {
     return (
+
       <Collapse in={open} style={{width: '100%'}}>
         <Alert
           style={{width: '100%'}}
@@ -99,7 +107,6 @@ const StatusAlert = () => {
   } else if (status == 'error') {
     return (
 
-
       <Collapse in={open} style={{width: '100%'}}>
         <Alert
           style={{width: '100%'}}
@@ -130,14 +137,20 @@ const StatusAlert = () => {
   }
 };
 
+/**
+ * Form
+ * Returns the form for adding MAC addresses
+ * @returns {JSX.Element}
+ */
 const Form = () => {
-  const theme = useTheme();
 
+  // React Hooks
   const [address, setAddress] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [disabled, setDisabled] = React.useState(true);
   const [status, setStatus] = React.useState('');
 
+  // Check if the address is valid
   const handleAddress = (e) => {
     if (/^[a-zA-Z0-9\:\.\-]+$/.test(e.target.value)) {
       // check for right length
@@ -153,10 +166,12 @@ const Form = () => {
     }
   };
 
+  // Adds into description
   const handleDescription = (e) => {
     setDescription(e.target.value);
   };
 
+  // Submit the form
   const submitForm = (e) => {
     e.preventDefault();
     const authorizedAddress = {
@@ -164,10 +179,10 @@ const Form = () => {
       description: description
     };
 
+    // Post the authorized address
     try {
-      axios.post('http://localhost:8080/devices', authorizedAddress)
+      axios.post('http://macauth.herokuapp.com/devices', authorizedAddress)
         .then((res) => {
-        
           if (res.data.oui == null) {
             bake_cookie('status', 'error?'+res.data.address);
             window.location.href = '/authorizer';
@@ -186,6 +201,7 @@ const Form = () => {
     }
   };
 
+  // Return the form
   return (
 
     <Box>
@@ -195,6 +211,7 @@ const Form = () => {
       >
         <form noValidate autoComplete="off">
           <Grid container spacing={4}>
+
             <Grid item container xs={12}>
               <Box>
                 <Typography variant="h6" >
@@ -204,12 +221,13 @@ const Form = () => {
                   e.g. AA:BB:CC:DD:EE:FF, AA-BB-CC-DD-EE-FF, AAAA.BBBB.CCCC is <span style={{color: 'green'}}> valid</span>, 
                   but AA^BB^CC^DD^EE^FF is <span style={{color: 'red'}}>not</span>
                 </Typography>
-
               </Box>
             </Grid>
+
             <Grid item xs={12}>
               <Divider />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 sx={{ height: 54 }}
@@ -222,6 +240,7 @@ const Form = () => {
                 onChange={handleAddress}
               />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 label="Description"
@@ -236,11 +255,9 @@ const Form = () => {
               />
             </Grid>
 
-            
             <Grid item container justifyContent={'center'} xs={9}>
               <StatusAlert/>
             </Grid>
-
 
             <Grid item container justifyContent={'center'} xs={3}>
               <Button
@@ -256,6 +273,7 @@ const Form = () => {
                 Authorize this address
               </Button>
             </Grid>
+
           </Grid>
         </form>
       </Box>

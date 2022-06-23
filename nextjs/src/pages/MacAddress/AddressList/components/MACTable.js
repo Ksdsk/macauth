@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -14,8 +15,14 @@ import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 import DialogDynamic from './dialog/dialogDynamic';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const SimpleStriped = () => {
-  const theme = useTheme();
+/**
+ * AddressTable
+ * Shows the user the list of addresses
+ * @returns {JSX.Element}
+ */
+const AddressTable = () => {
+
+  // Create a temporary loading state
   const temp = [{
     _id: 0,
     oui: <CircularProgress/>, 
@@ -23,23 +30,16 @@ const SimpleStriped = () => {
     last_active: "."
   }];
 
-  const [data, setData] = useState();
-
+  // React Hooks
   const [addresses, setAddresses] = useState(temp);
 
-  const [addressFormat, setAddressFormat] = React.useState('');
-
-  useEffect(() => {
-    if (read_cookie('address_format').length == 0) {
-      setAddressFormat(1);
-    } else {
-      setAddressFormat(read_cookie('address_format'));
-    }
-  });
-
+  /**
+   * addressFunction
+   * Gets the list of addresses from the database
+   */
   const addressesFunction = async () => {
     try {
-      const data = await axios
+      await axios
         .get('http://macauth.herokuapp.com/devices')
         .then(res => {
           console.log(res.data);
@@ -72,9 +72,9 @@ const SimpleStriped = () => {
     }
   };
 
+  // Run the script before the component is rendered
   useEffect(() => {
     addressesFunction();
-    
   }, []);
 
   return (
@@ -157,4 +157,4 @@ const SimpleStriped = () => {
   );
 };
 
-export default SimpleStriped;
+export default AddressTable;

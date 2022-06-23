@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+// Imports
 import React, { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -8,12 +9,6 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
-import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -22,24 +17,29 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-
+/**
+ * Form
+ * Returns the form for the OUILookup page
+ * @returns {JSX.Element}
+ */
 const Form = () => {
-  const theme = useTheme();
 
+  // React Hooks
   const [address, setAddress] = React.useState('');
   const [ouis, setOuis] = React.useState([]);
   const [disabled, setDisabled] = React.useState(true);
 
   const handleAddress = (e) => {
 
+    // Trim the address
     const trimmedAddress = e.target.value;
     const addressArray = trimmedAddress.split(',');
     var error = false;
 
-
+    // Check if the address is valid
     for (var i = 0; i < addressArray.length; i++) {
-      const sp = addressArray[i].replace(/\.|\:|\-/g,'|');
 
+      const sp = addressArray[i].replace(/\.|\:|\-/g,'|');
       const temp = sp.split('|').join('').replace(' ','');
       
       if (temp.length != 6 && temp.length != 12) {
@@ -48,15 +48,9 @@ const Form = () => {
       } else {
         error = false;
       }
-      // if (addressArray[i].length != 12 && addressArray[i].length != 6 && addressArray.length[i] != 0) {
-      //   error = true;
-      //   break;
-      // } else {
-      //   console.log(addressArray[i].length)
-      //   error = false;
-      // }
     }
 
+    // If the address is valid, set the address and enable the button
     if (!error) {
       setAddress(trimmedAddress);
       setDisabled(false);
@@ -65,25 +59,24 @@ const Form = () => {
     }
   };
   
-
+  // Submit the address
   const submitForm = async (e) => {
+
     e.preventDefault();
 
-    console.log(address);
+    // Get the OUIs based on the address
     try {
       await axios
         .get('http://macauth.herokuapp.com/oui/' + address)
         .then(res => {
           setOuis(res.data);
-        
         });
     } catch (err) {
-      window.location.href = '/authorizer?' + err;
+      window.location.href = '/ouilookup?' + err;
     }
   };
 
   return (
-
     <Box>
       <Box
         width={1}
@@ -91,6 +84,7 @@ const Form = () => {
       >
         <form noValidate autoComplete="off">
           <Grid container spacing={4}>
+
             <Grid item container xs={12}>
               <Box>
                 <Typography variant="h6" >
@@ -100,12 +94,13 @@ const Form = () => {
                   e.g. AA:BB:CC:DD:EE:FF, AA-BB-CC-DD-EE-FF, AAAA.BBBB.CCCC is <span style={{color: 'green'}}> valid</span>, 
                   but AA^BB^CC^DD^EE^FF is <span style={{color: 'red'}}>not</span>
                 </Typography>
-
               </Box>
             </Grid>
+
             <Grid item xs={12}>
               <Divider />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 label="MAC Addresses"
@@ -119,19 +114,18 @@ const Form = () => {
                 onChange={handleAddress}
               />
             </Grid>
-
             
             <Grid item container justifyContent={'center'} xs={9}>
-
-              
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+
                   <TableHead>
                     <TableRow>
                       <TableCell>MAC Address / OUI Code</TableCell>
                       <TableCell>OUI</TableCell>
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
                     {ouis.map((item,i) => (
                       <TableRow
@@ -145,10 +139,10 @@ const Form = () => {
                       </TableRow>
                     ))}
                   </TableBody>
+
                 </Table>
               </TableContainer>
             </Grid>
-
 
             <Grid item container justifyContent={'center'} xs={3}>
               <Button
@@ -166,7 +160,6 @@ const Form = () => {
             </Grid>
           </Grid>
         </form>
-
       </Box>
     </Box>
   );

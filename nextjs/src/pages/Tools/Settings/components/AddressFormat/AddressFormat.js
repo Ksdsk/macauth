@@ -1,3 +1,4 @@
+// Imports
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,30 +11,21 @@ import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
 const CustomSelect = () => {
 
-  // console.log(read_cookie("e"))
-
-  // var temp = read_cookie("temp_address_format");
-
-  // check if not already exists
-
-  // temp.length == 0 ? temp = '' : null;
-
+  // React Hooks
   const [addressFormat, setAddressFormat] = React.useState('');
 
+  const handleChange = (event) => {
+    setAddressFormat(event.target.value);
+    bake_cookie('temp_address_format',event.target.value);
+  };
+
+  // See if the address format cookie exists
   useEffect(() => {
     if (read_cookie('temp_address_format').length == 0) {
     } else {
       setAddressFormat(read_cookie('temp_address_format'));
     }
   });
-
-  const handleChange = (event) => {
-    setAddressFormat(event.target.value);
-    bake_cookie('temp_address_format',event.target.value);
-    // if (read_cookie("agraga").length == 0) {
-    //   console.log("none");
-    // }
-  };
 
   return (
 

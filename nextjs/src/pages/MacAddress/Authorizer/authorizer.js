@@ -1,16 +1,21 @@
+// Imports
 import React, { useState } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
-import Alert from '@mui/material/Alert';
 import Container from 'components/Container';
 import { Topbar, Sidebar, Footer } from '../../../components/navbar';
 import AddForm from './components/AddForm';
 
+/**
+ * ChildMock
+ * Returns the form for adding a new MAC address
+ * @returns {JSX.Element}
+ */
 const ChildMock = () => {
-  const theme = useTheme();
+
   return (
     <Box p={4}>
       <Box
@@ -18,28 +23,26 @@ const ChildMock = () => {
         height={1}
         minHeight={800}
         borderRadius={2}
-        // border={`2px solid ${theme.palette.divider}`}
-        // sx={{
-        //   borderStyle: 'dashed',
-        // }}
       >
-        
         <AddForm/>
-        <Box pt={2} className={'minitext'} color={'text.secondary'}>
-          {/* {"Last Updated: " + new Date().toUTCString()} */}
-        </Box>
       </Box>
-      
     </Box>
   );
 };
 
+/**
+ * Authorizer
+ * Returns the authorizer page
+ * @returns {JSX.Element}
+ */
 const Authorizer = () => {
+
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  // React Hooks
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = () => {
@@ -50,6 +53,7 @@ const Authorizer = () => {
     setOpenSidebar(false);
   };
 
+  // is it mobile?
   const open = isMd ? false : openSidebar;
 
   return (

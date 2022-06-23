@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+// Imports
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -17,13 +18,28 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
+
+
+
+
 // if settings get too complicated i'll add the dialogs
 
+
+
+
+/**
+ * StatusAlert
+ * Unused ^^^
+ * @returns {JSX.Element}
+ */
 const StatusAlert = () => {
+
+  // React Hooks
   const [open, setOpen] = React.useState(true);
   const [status, setStatus] = React.useState('');
   const [address, setAddress] = React.useState('');
   
+  // Determine the status of the form
   useEffect(() => {
     if (read_cookie('status').length != [0]) {
       setStatus(read_cookie('status').split('?')[0]);
@@ -41,13 +57,13 @@ const StatusAlert = () => {
       }
     }
 
+    // Delete the status cookie after setting the status
     delete_cookie('status');
     delete_cookie('address');
   
   });
 
-  console.log(status);
-
+  // Return the status alert
   if (status == 'success') {
     return (
       <Collapse in={open} style={{width: '100%'}}>
@@ -106,13 +122,24 @@ const StatusAlert = () => {
   }
 };
 
+/**
+ * Form
+ * Form for the settings page
+ * @returns {JSX.Element}
+ */
 const Form = () => {
+
+  // Mobile check
   const theme = useTheme();
   const { themeToggler } = theme;
   const { mode } = theme.palette;
 
+  // Submit the form
   const submitForm = (e) => {
+
     e.preventDefault();
+
+    // Set temp status cookie
     if (read_cookie('temp_theme').length == [0]) {
       bake_cookie('theme', 'light');
     } else {
@@ -121,13 +148,19 @@ const Form = () => {
 
     bake_cookie('address_format', read_cookie('temp_address_format'));
     bake_cookie('time_zone', read_cookie('temp_time_zone'));
+
+    // Toggle theme based on the theme cookie
     if (mode != read_cookie('theme')) {
       themeToggler();
     }
   };
 
+  // Reset the settings
   const resetSettings = (e) => {
+
     e.preventDefault();
+
+    // remove all cookies
     delete_cookie('theme');
     delete_cookie('address_format');
     delete_cookie('time_zone');
@@ -135,15 +168,16 @@ const Form = () => {
     delete_cookie('temp_address_format');
     delete_cookie('temp_time_zone');
 
+    // default the theme to light
     if (mode != 'light') {
       themeToggler();
     }
+
     window.location.reload();
   };
 
 
   return (
-
     <Box>
       <Box
         width={1}
@@ -151,6 +185,7 @@ const Form = () => {
       >
         <form noValidate autoComplete="off">
           <Grid container spacing={4}>
+
             <Grid item xs={3}>
               <Box
                 sx={{display: 'flex', alignItems: 'center', height: 50}}
@@ -163,9 +198,11 @@ const Form = () => {
                 </Typography>
               </Box>
             </Grid>
+
             <Grid item xs={9}>
               <ThemeSelect/>
             </Grid>
+
             <Grid item xs={3}>
               <Box
                 sx={{display: 'flex', alignItems: 'center', height: 50}}
@@ -178,9 +215,11 @@ const Form = () => {
                 </Typography>
               </Box>
             </Grid>
+
             <Grid item xs={9}>
               <AddressFormat/>
             </Grid>
+
             <Grid item xs={3}>
               <Box
                 sx={{display: 'flex', alignItems: 'center', height: 50}}
@@ -193,12 +232,15 @@ const Form = () => {
                 </Typography>
               </Box>
             </Grid>
+
             <Grid item xs={9}>
               <TimeZoneFormat/>
             </Grid>
+
             <Grid item xs={6}>
               {/* Empty for placement */}
             </Grid>
+
             <Grid item container justifyContent={'center'} xs={3}>
               <Button
                 sx={{ height: 54, minWidth: 150 }}
@@ -212,6 +254,7 @@ const Form = () => {
                 Save
               </Button>
             </Grid>
+            
             <Grid item container justifyContent={'center'} xs={3}>
               <Button
                 sx={{ height: 54, minWidth: 150 }}

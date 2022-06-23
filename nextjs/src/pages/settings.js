@@ -1,10 +1,16 @@
+// Imports
 import React from 'react';
 import Settings from './Tools/Settings';
 
-const AuthorizerPage = () => {
+/**
+ * SettingsPage
+ * Page for the settings page
+ * @returns {JSX.Element}
+ */
+const SettingsPage = () => {
   return (
     <Settings />
   );
 };
 
-export default AuthorizerPage;
+export default SettingsPage;

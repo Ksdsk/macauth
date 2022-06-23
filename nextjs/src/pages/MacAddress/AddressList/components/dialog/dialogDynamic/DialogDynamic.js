@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,11 +7,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 import DialogRemove from '../dialogRemove';
 
+/**
+ * DialogDynamic
+ * Dialog for showing the details of the MAC address
+ * @param {String, String, String, Date, Date} {itemAddress, itemDescription, itemOuiLong, itemLastActive, itemDateAdded}
+ * @returns {JSX.Element}
+ */
 const DialogDynamic = ({itemAddress, itemDescription, itemOuiLong, itemLastActive, itemDateAdded}) => {
 
+  // React Hooks
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -24,7 +31,7 @@ const DialogDynamic = ({itemAddress, itemDescription, itemOuiLong, itemLastActiv
   return (
     <Box>
       <Button variant="outlined" onClick={handleClickOpen}>
-                        More Options
+        More Options
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{itemAddress}</DialogTitle>

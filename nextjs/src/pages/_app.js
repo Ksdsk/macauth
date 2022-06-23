@@ -10,9 +10,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 
-
-import globalStyle from '../styles/global.css';
-
 export default function App({ Component, pageProps }) {
   return (
     <React.Fragment>
@@ -21,7 +18,7 @@ export default function App({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <title>MACauth v0.3.0</title>
+        <title>MACauth v0.3.2</title>
       </Head>
       <Page>
         <Component {...pageProps} />

@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTheme } from '@mui/material/styles';
@@ -6,11 +7,16 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
+/**
+ * Cover for the 404 page
+ * @returns {JSX.Element}
+ */
 const NotFoundCover = () => {
+
+  // Theme checks
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
