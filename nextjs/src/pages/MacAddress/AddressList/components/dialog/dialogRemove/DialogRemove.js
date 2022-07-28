@@ -38,7 +38,7 @@ const DialogRemove = ({itemAddress}) => {
    */
   function removeAddress(address) {
     try {
-      axios.delete('http://macauth.herokuapp.com/devices/'+address)
+      axios.delete('http://192.168.6.19:8080/devices/'+address)
         .then(() => window.location.reload());
     } catch (err) {
       console.log(err);

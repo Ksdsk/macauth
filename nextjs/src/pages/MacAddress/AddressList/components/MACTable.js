@@ -40,7 +40,7 @@ const AddressTable = () => {
   const addressesFunction = async () => {
     try {
       await axios
-        .get('http://macauth.herokuapp.com/devices')
+        .get('http://192.168.6.19:8080/devices')
         .then(res => {
           console.log(res.data);
           for (var i = 0; i < res.data.length; i++) {

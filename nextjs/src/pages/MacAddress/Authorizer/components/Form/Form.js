@@ -181,7 +181,7 @@ const Form = () => {
 
     // Post the authorized address
     try {
-      axios.post('http://macauth.herokuapp.com/devices', authorizedAddress)
+      axios.post('http://192.168.6.19:8080/devices', authorizedAddress)
         .then((res) => {
           if (res.data.oui == null) {
             bake_cookie('status', 'error?'+res.data.address);

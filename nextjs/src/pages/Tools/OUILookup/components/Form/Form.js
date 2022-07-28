@@ -67,7 +67,7 @@ const Form = () => {
     // Get the OUIs based on the address
     try {
       await axios
-        .get('http://macauth.herokuapp.com/oui/' + address)
+        .get('http://192.168.6.19:8080/oui/' + address)
         .then(res => {
           setOuis(res.data);
         });
