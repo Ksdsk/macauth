@@ -23,7 +23,7 @@ const Footer = () => {
           color="text.secondary"
           gutterBottom
         >
-          Mackerel MAC Diagnosis
+          MacAuth MAC Diagnosis
         </Typography>
         <Typography
           align={'center'}
@@ -31,7 +31,7 @@ const Footer = () => {
           color="text.secondary"
           component={'p'}
         >
-          Please do not upload the website online. This website runs a REST API that returns information within the Student Lab network. 
+          Please do not upload the website online. This website runs a REST API that returns information within a test network. 
           The interface is built like a glass, so it&apos;s prone to break. It was just built for fun, and shouldn&apos;t be used for any critical uses. 
           I wish I was smart enough to turn this into an actual product though.
         </Typography>
